@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-08-28T03:24:34+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">BrushstrokeSymphony</title><subtitle>The place where I write my true thoughts about Data Structures, Algorithms and ther Computer Science stuffs</subtitle><entry><title type="html">A Cyclic Array Problem</title><link href="http://localhost:4000/jekyll/update/2024/08/25/codeforces-cyclic-array-problem.html" rel="alternate" type="text/html" title="A Cyclic Array Problem" /><published>2024-08-25T00:00:00+05:30</published><updated>2024-08-25T00:00:00+05:30</updated><id>http://localhost:4000/jekyll/update/2024/08/25/codeforces-cyclic-array-problem</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2024/08/25/codeforces-cyclic-array-problem.html"><![CDATA[<p><em>Comments, Constructive criticism, opinions and Bug raises are welcome, but guidances are unwelcome</em></p>
+
+<p><strong>Problem</strong> : You are given a cyclic array <code class="language-plaintext highlighter-rouge">a</code> of size <code class="language-plaintext highlighter-rouge">n</code>. If any two adjacent elements <code class="language-plaintext highlighter-rouge">a[i]</code> and <code class="language-plaintext highlighter-rouge">a[i+1]</code> follow the relation <code class="language-plaintext highlighter-rouge">a[i] &lt;= a[i+1]</code>, then you can delete any one of them. Find minimum number of deletions so that all elements in cyclic array <code class="language-plaintext highlighter-rouge">a</code> are equal</p>
+
+<p><strong>First Intuition</strong> : Elements with maximum number of occurance will stay back.</p>
+
+<p>Of course, an intuition comes to our mind without proof. We want a proof model. For that I had a thought process, which is written below :</p>
+
+<p><strong>Proof model</strong> : Let your brain start using your imagination! 
+Imagine a polar coordinate system. The coordinates of circular grid are (r, theta). Plot the values of circular array in this grid in such a way that r is the value, and theta is e^{i . pi / n} where i is index. Find a circle where maximum number of plotted points occur. There can be plotted points that appear outside as well as inside the circle. Now construct a polygon by joining adjacent plotted points(which is, in another way, adjacent values in the cyclic array). You can delete any node that appears on an ascending edge or a flat edge.</p>
+
+<p><strong>The greatest flaw in the plan</strong> : Consider 5-6 adjacent nodes in such a way that the edges connecting them appear like a continuous descending slope. You simply cannot delete the nodes that appear strictly inside this descending slope since the edges donot satisfy the condition for deletion. Right?</p>
+
+<p><strong>I got the solution</strong> : 
+Let <code class="language-plaintext highlighter-rouge">x</code> be the number which have most number of occurance in the array. So, I have to see whether it is possible to remove all other elements.</p>
+
+<p><strong>1</strong>. Consider the elements which are just after <code class="language-plaintext highlighter-rouge">x</code> whose value is larger than <code class="language-plaintext highlighter-rouge">x</code>. We can delete them.
+<strong>2.</strong> Consider the elements which are just before <code class="language-plaintext highlighter-rouge">x</code> whose value is not larger than <code class="language-plaintext highlighter-rouge">x</code>. We can delete them too.</p>
+
+<p>Repeat 1 and 2 till there is no change in the circular array.  You can prove that this array indeed only contains <code class="language-plaintext highlighter-rouge">x</code>s, by Proof By Contradiction method.</p>
+
+<p>So, why the flaw in the plan was not at all a flaw? 
+If you think recursively, in the great decreasing slope, there are endpoints. They can be eliminated(I am not that good to explain how in simple words. A future me might edit this line), and the decreasing slope’s size decreases. Apply this process multiple times to that slope, so that you could eliminate/<em>do-whatever-with</em> the slope</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[Comments, Constructive criticism, opinions and Bug raises are welcome, but guidances are unwelcome]]></summary></entry><entry><title type="html">[Past] : When I was confused with BFS</title><link href="http://localhost:4000/jekyll/update/2024/08/20/confusions-in-bfs.html" rel="alternate" type="text/html" title="[Past] : When I was confused with BFS" /><published>2024-08-20T22:09:00+05:30</published><updated>2024-08-20T22:09:00+05:30</updated><id>http://localhost:4000/jekyll/update/2024/08/20/confusions-in-bfs</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2024/08/20/confusions-in-bfs.html"><![CDATA[<p>I’m always confused about bfs. Okay the concept is pretty simple Ik, we are traversing the nodes of a graph breadth wise from a start node. 
+But the thing that confuses me is that should we mark a node visited before pushing it into the queue? or should we mark the node which is dequeued from queue as visited?</p>
+
+<p>I need a concrete explanation for this.</p>
+
+<p><strong>Edit</strong> : <em>You are encouraged to know Depth First Search Traversal on Graphs before reading further</em></p>
+
+<p>We mark node visited before pushing it into queue, so that we can avoid cases where same node could be enqueued multiple times. When it will happen?</p>
+
+<p>Lets say we are exploring a graph using bfs, and let us mark a node visited when it is dequeued from queue. Let us assume the node we are currently exploring is <code class="language-plaintext highlighter-rouge">a</code>. Let node <code class="language-plaintext highlighter-rouge">b</code> be a child of <code class="language-plaintext highlighter-rouge">a</code>. According to the procedure of bfs, we enqueue <code class="language-plaintext highlighter-rouge">b</code> to the queue (here, without marking as visited). Lets say there is another node <code class="language-plaintext highlighter-rouge">c</code> in the graph and lets say <code class="language-plaintext highlighter-rouge">b</code> is a kid of <code class="language-plaintext highlighter-rouge">c</code> . Let say we happened to explore <code class="language-plaintext highlighter-rouge">c</code>  before dequeueing <code class="language-plaintext highlighter-rouge">b</code> from the queue. There, we’ll see that <code class="language-plaintext highlighter-rouge">b</code> is a kid of <code class="language-plaintext highlighter-rouge">c</code>,  and we’ll enqueue <code class="language-plaintext highlighter-rouge">b</code> again.</p>
+
+<p>Comments are welcome(although I think above explanation is sufficient)</p>
+
+<p><strong>Nilesh’s Reply</strong> : <em>… times. When it will happen?</em></p>
+
+<p>consider graph which has 6 nodes <code class="language-plaintext highlighter-rouge">{a, 1, 2, 3, 4 b}</code>, and total 8 edges, <code class="language-plaintext highlighter-rouge">a</code> is connected to nodes from 1 to 4, <code class="language-plaintext highlighter-rouge">b</code> is connected to nodes from 1 to 4, <code class="language-plaintext highlighter-rouge">a</code> is the root node</p>
+
+<p>start bfs from  root <code class="language-plaintext highlighter-rouge">a</code>, 
+elements in queue will be in order <code class="language-plaintext highlighter-rouge">[a 1 2 3 4 b b b b]</code> if we mark visited at dequeue
+elements in queue will be in order <code class="language-plaintext highlighter-rouge">[a 1 2 3 4 b]</code> if we mark visited at enqueue</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[I’m always confused about bfs. Okay the concept is pretty simple Ik, we are traversing the nodes of a graph breadth wise from a start node. But the thing that confuses me is that should we mark a node visited before pushing it into the queue? or should we mark the node which is dequeued from queue as visited?]]></summary></entry><entry><title type="html">Thoughts in Binary Search</title><link href="http://localhost:4000/jekyll/update/2024/08/02/thoughts-in-binary-search.html" rel="alternate" type="text/html" title="Thoughts in Binary Search" /><published>2024-08-02T22:09:00+05:30</published><updated>2024-08-02T22:09:00+05:30</updated><id>http://localhost:4000/jekyll/update/2024/08/02/thoughts-in-binary-search</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2024/08/02/thoughts-in-binary-search.html"><![CDATA[<p><em><strong>NB : Open comments, constructive criticisms all are welcome.</strong></em></p>
+
+<p>Binary search is used in sorted arrays to solve some problems in <code class="language-plaintext highlighter-rouge">O(log n)</code> time.</p>
+
+<p>What if Binary search is used in problems which does not seem to have sorted elements at all? 
+What if binary search reduces time complexity of problems not only from linear to logarithmic?</p>
+
+<p><strong>Problem:</strong>
+You are given an array, which represents blooming time of flowers which are planted in a row.
+example array : <code class="language-plaintext highlighter-rouge">[7, 7, 7, 7, 13, 11, 12, 7]</code>
+You are given <code class="language-plaintext highlighter-rouge">k</code>, which is  no of flowers you needed to make a bouquet, and <code class="language-plaintext highlighter-rouge">m</code>, which is total no of bouquets you needed to make.
+You are asked to return min no of days to make <code class="language-plaintext highlighter-rouge">m</code> bouquets.
+Condition : you are allowed to make bouquet using adjacent flowers only.</p>
+
+<p><strong>Solution</strong>: 
+Brute force : Get maximum and minimum of arrays(max no of days for all to bloom and min no of days to get atleast one flower bloom). The answer days will lie on this search space ( [minDays, maxDays] )</p>
+
+<p>Make a function which takes the array <code class="language-plaintext highlighter-rouge">arr</code>, a sample day <code class="language-plaintext highlighter-rouge">d</code>,  sample bouquet size <code class="language-plaintext highlighter-rouge">k</code> and sample bouquet count <code class="language-plaintext highlighter-rouge">m</code>. Maintain a variable <code class="language-plaintext highlighter-rouge">cnt</code>. Go through the array <code class="language-plaintext highlighter-rouge">arr</code>. If <code class="language-plaintext highlighter-rouge">arr[i] &lt;= d</code>  increment count, else append count to another vector <code class="language-plaintext highlighter-rouge">v</code>. At the end, analyse the vector <code class="language-plaintext highlighter-rouge">v</code> to get no of bouquets we are able to make <code class="language-plaintext highlighter-rouge">m'</code>. If <code class="language-plaintext highlighter-rouge">m' &gt;= m</code> return <code class="language-plaintext highlighter-rouge">true</code>, else return <code class="language-plaintext highlighter-rouge">false</code>.
+(well you could optimise the code by not taking <code class="language-plaintext highlighter-rouge">v</code>, ik)</p>
+
+<p>So, this function can be used to know whether a day <code class="language-plaintext highlighter-rouge">d</code> will be our answer or not.</p>
+
+<p>We’ve a search space [<code class="language-plaintext highlighter-rouge">minDays</code>, <code class="language-plaintext highlighter-rouge">maxDays</code>] and we’ve to find min <code class="language-plaintext highlighter-rouge">d</code> where <code class="language-plaintext highlighter-rouge">d</code> satisfies the stuffs, binary search comes.</p>
+
+<p>So, The technique binary search might not be evident from the problem statement, It would come handy in the middle of the problems as well.</p>
+
+<p><strong>Nilesh’s Reply</strong> : Binary search depends on monotonic nature of problem you are trying solve. 
+For example a monotonic function <code class="language-plaintext highlighter-rouge">F(x)</code>: 
+here <code class="language-plaintext highlighter-rouge">x</code> is input value, <code class="language-plaintext highlighter-rouge">F(x)</code> is true if <code class="language-plaintext highlighter-rouge">x</code> is from prefix of the array and <code class="language-plaintext highlighter-rouge">F(x)</code> is false when <code class="language-plaintext highlighter-rouge">x</code>  is from the other part of array.</p>
+
+<p>Try finding median of an array using binary search.</p>
+
+<p>This is from latest Div4 of cf, try using binary search (easy part) - <a href="https://codeforces.com/contest/1999/problem/G1">https://codeforces.com/contest/1999/problem/G1</a></p>
+
+<p>For the above problem, binary search can be further improved using ternary search in this -  <a href="https://codeforces.com/contest/1999/problem/G2">https://codeforces.com/contest/1999/problem/G2</a></p>
+
+<p>Ternary search Tutorial - <a href="https://cp-algorithms.com/num_methods/ternary_search.html">https://cp-algorithms.com/num_methods/ternary_search.html</a></p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[NB : Open comments, constructive criticisms all are welcome.]]></summary></entry></feed>
