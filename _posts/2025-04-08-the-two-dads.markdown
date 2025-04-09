@@ -1,3 +1,5 @@
+_Scribe by Mrs Rajasree M S_
+
 Here I am going to discuss about the versions of two dads. The love of money is the root of all evil— poor Dad. The lack of money is the root of all evil -Rich dad
 “I can't afford it” -poor Dad “how can I afford it”that is the financial mind set of a Rich Dad in the first case brain stops working  in second case brain is put to work that is in first case for mental laziness then “how can I afford it” the idea giving exercise to brain. 
 Study hard and you can find a good company to work for poor Dad ,,Rich dad “study hard and you can find a good company to buy”
